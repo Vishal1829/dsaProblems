@@ -2,6 +2,8 @@
 using namespace std;
 
 int hoarePartition(vector<int> &v, int l, int h){
+   int randPivotInd = rand()%(h-l + 1) + l;
+   swap(v[l], v[randPivotInd]);
    int pivot = v[l];
    int i=l-1, j=h+1;
    while(true){
@@ -18,6 +20,8 @@ int hoarePartition(vector<int> &v, int l, int h){
 }
 
 int lomutoPartition(vector<int> &v, int l, int h){
+   int randPivotInd = rand()%(h-l + 1) + l;
+   swap(v[h], v[randPivotInd]);
    int pivot = v[h];
    int i=l-1;
    for(int j=l;j<=h-1;j++){
@@ -49,14 +53,18 @@ void quickSort2(vector<int> &v, int l, int h){
 }
 
 int main(){
+   srand(time(NULL));
    vector<int> v={5,7,1,2,8,10,3,9,16,12};
-  //  quickSort1(v, 0 ,v.size()-1);
-   quickSort2(v, 0 ,v.size()-1);
+   quickSort1(v, 0 ,v.size()-1);
+  //  quickSort2(v, 0 ,v.size()-1);
    for(auto &k : v)
      cout<<k<<" ";
 }
 
 /*
- In BubbleSort we always compare the adjacent elements i.e., arr[i] to arr[i+1] and if arr[i]>arr[i+1]
- then only we will swap. It is an stable and in-place algorithm.
+    To generate a random number between min and max, use:
+    int randNum = rand()%(max-min + 1) + min;
+    (Includes max and min)
+
+    rand() % ((highestNumber - lowestNumber) + 1) + lowestNumber
 */
