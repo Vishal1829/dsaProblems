@@ -27,4 +27,9 @@ int main(){
 /*
  In BubbleSort we always compare the adjacent elements i.e., arr[i] to arr[i+1] and if arr[i]>arr[i+1]
  then only we will swap. It is an stable and in-place algorithm.
+
+ Also reason it is known as BubbleSort becoz in every iteration the larger element goes to its right place
+ as we compare a particular element to its right side and if bigger then swap so it eventually gets to
+ its right place so if 'n' elements are there then we need total n-1 iteration to sort the array
+ as in each iteration a element is placed in its correct position.
 */
