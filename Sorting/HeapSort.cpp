@@ -73,4 +73,23 @@ int main(){
   which is 0 index and keeps calling Heapify for every node it visits. Time Complexity of buildHeap is O(n).
   2.Repeatedly swap root with last node, reduce heap size by one, and heapify.
   HeapSort is not stable and in-place algorithm.
+
+
+  In C++:
+  PriorityQueue is by default maxHeap => prority_queue<int> pq;
+  minHeap => prority_queue<int, vector<int>, greater<int>> pq;
+  Custom comparator for PriorityQueue:
+  struct myCmp {
+      bool operator() (const auto &a, const auto &b) {
+          return a.val<b.val;
+      }
+  };
+  or
+  class myCmp {
+    public:
+      bool operator() (const auto &a, const auto &b) {
+          return a.val<b.val;
+      }
+  };
+
 */
