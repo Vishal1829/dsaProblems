@@ -31,6 +31,18 @@ int main(){
     //     else
     //       cout<<x<<" is not divisible by "<<d<<"\n";
     // });
+
+    []() {
+      cout<<"immediately invoked lambda function";
+    }();
+
+    cout<<endl;
+    auto val = []() -> int {
+        cout<<"immediately invoked lambda function with return value";
+        return 1;
+    }();
+    cout<<endl<<val;
+
     return 0;
 }
 //Lambda functions are:- inline anonymous functions
