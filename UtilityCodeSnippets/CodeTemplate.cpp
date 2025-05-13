@@ -56,5 +56,37 @@ int main() {
   }();
   cout<<endl<<val;
 
+  int charValue = 97;
+  cout<< char(charValue + 1) <<endl;
+
+  long val = 9;
+  //both are valid but in C++ prefer the functional style casting.
+  cout<< int(val) <<endl;
+  cout << (int)val << endl;
+
+  float f = 3.14f;
+  double myDouble = 3.14159265;
+
+  cout << (double)f << endl;  // C-style cast (float to double)
+  cout << double(f) << endl;  // Functional style cast (float to double)
+
+  cout << (float)myDouble << endl;  // C-style cast (double to float)
+  cout << float(myDouble) << endl;  // Functional style cast (double to float)
+
+  string str = "123.45";
+    
+  // Convert string to numeric types
+  int myInt = std::stoi(str);    // Converts string to int (only works for whole numbers)
+  float myFloat = std::stof(str);  // Converts string to float
+  double myDoubleVal = std::stod(str); // Converts string to double
+  
+  cout << myInt << endl;   // Outputs: 123
+  cout << myFloat << endl;   // Outputs: 123.45
+  cout << myDoubleVal << endl;   // Outputs: 123.45
+
+  cout << std::to_string(myInt) << std::endl;   // "123"
+  cout << std::to_string(myFloat) << std::endl;   // "3.140000"
+  cout << std::to_string(myDoubleVal) << std::endl;   // "3.141590"
+
   return 0;
 }
