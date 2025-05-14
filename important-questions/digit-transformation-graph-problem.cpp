@@ -1,86 +1,92 @@
-#include <iostream>
-#include <queue>
-#include <unordered_set>
-#include <vector>
-#include <string>
+#include <bits/stdc++.h>
 using namespace std;
+using pis=pair<int,string>;
 
-vector<string> getNeighbors(const string& num) {
+vector<string> getAllNeighbours(string &a) {
     vector<string> neighbors;
-    for (int i = 0; i < num.size(); ++i) {
-        string temp = num;
-        int digit = temp[i] - '0';
+    for(int i=0;i<a.length();i++) {
+        char ch=a[i];
+        
+        int digit = a[i] - '0';
 
         // Increment
         if (digit < 9) {
-            temp[i] = (digit + 1) + '0';
-            neighbors.push_back(temp);
+            a[i] = (digit + 1) + '0';
+            neighbors.push_back(a);
         }
 
         // Decrement
         if (digit > 0) {
-            temp[i] = (digit - 1) + '0';
-            neighbors.push_back(temp);
+            a[i] = (digit - 1) + '0';
+            neighbors.push_back(a);
         }
 
         // Double
         if (digit * 2 <= 9) {
-            temp[i] = (digit * 2) + '0';
-            neighbors.push_back(temp);
+            a[i] = (digit * 2) + '0';
+            neighbors.push_back(a);
         }
+        
+        a[i]=ch;
     }
+    
     return neighbors;
 }
 
-pair<int, vector<string>> digitTransform(string start, string end) {
-    if (start == end)
-        return {0, {start}};
-
-    queue<pair<string, vector<string>>> q;
+pair<int, vector<string>> solve(string &a, string &b) {
     unordered_set<string> visited;
-
-    q.push({start, {start}});
-    visited.insert(start);
-
-    while (!q.empty()) {
-        auto [curr, path] = q.front();
+    unordered_map<string, string> parent;
+    queue<pis> q;
+    q.emplace(1, a);
+    visited.insert(a);
+    parent[a]=a;
+    while(!q.empty()) {
+        auto [numCnt, num]=q.front();
         q.pop();
-
-        for (const string& neighbor : getNeighbors(curr)) {
-            if (visited.count(neighbor)) continue;
-
-            vector<string> newPath = path;
-            newPath.push_back(neighbor);
-
-            if (neighbor == end)
-                return {newPath.size() - 1, newPath};
-
-            q.push({neighbor, newPath});
-            visited.insert(neighbor);
+        if(num==b) {
+            vector<string> path;
+            while(parent[num]!=num) {
+                path.push_back(num);
+                num=parent[num];
+            }
+            path.push_back(num);
+            return {numCnt, path};
+        }
+        //go thorugh all the neighbours of num
+        for(string neighbour : getAllNeighbours(num)) {
+            if(!visited.count(neighbour)) {
+                q.emplace(numCnt+1, neighbour);
+                visited.insert(neighbour);
+                parent[neighbour]=num;
+            }
         }
     }
-
-    return {-1, {}}; // No path found
+    return {-1,{}};
 }
 
-int main() {
-    string start = "123";
-    string end = "345";
-
-    auto [steps, path] = digitTransform(start, end);
-    
-    if (steps == -1) {
-        cout << "No transformation path exists.\n";
-    } else {
-        cout << "Minimum operations: " << steps << "\nPath: ";
-        for (const string& s : path) {
-            cout << s << " ";
-        }
-        cout << endl;
+int main()
+{
+    string a="123", b="345";
+    auto p = solve(a,b);
+    if(p.first!=-1) {
+        cout<<"Cnt of minimum operations: "<<p.first<<endl;
+        cout<<"Path: ";
+        auto v=p.second;
+        reverse(v.begin(), v.end());
+        for(auto k : v)
+          cout<<k<<"->";
     }
 
     return 0;
 }
+/*
+Digit Transformation Problem – Given a start and end number, return the minimum operations 
+and path to convert start to end. You can only:
+Double a digit (≤ 9)
+Increment a digit (≤ 9)
+Decrement a digit (> 0)
+
+*/
 /*
 🔢 Digit Transformation Problem
 Problem Statement:
